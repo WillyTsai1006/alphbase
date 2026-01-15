@@ -48,7 +48,7 @@ graph TD
         H -->|Simulated Trades| I[Performance Report]
         I --> J[Equity Curve\nSharpe/Drawdown]
     end
-
+```
 ## 📊 Backtest Performance (Sample)
 ![Equity Curve Strategy vs Benchmark](assets/equity_curve.png)
 
