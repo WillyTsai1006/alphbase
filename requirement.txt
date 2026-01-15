@@ -1,0 +1,20 @@
+# Data Engineering & Database
+pandas>=1.5.0
+numpy>=1.23.0
+sqlalchemy>=1.4.0
+psycopg2-binary>=2.9.0
+yfinance>=0.2.0
+
+# Machine Learning & Optimization
+lightgbm>=3.3.0
+scikit-learn>=1.2.0
+optuna>=3.0.0
+joblib>=1.2.0
+
+# Scientific Computing & Visualization
+scipy>=1.9.0
+matplotlib>=3.6.0
+
+# Utilities
+python-dotenv>=1.0.0
+tqdm>=4.65.0

@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  timescaledb:
+    image: timescale/timescaledb:latest-pg14
+    container_name: alphabase_db
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=quant
+      - POSTGRES_DB=alphabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
