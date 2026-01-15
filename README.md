@@ -91,6 +91,7 @@ Step 3: Backtesting 執行回測並生成績效報告：
 python backtester.py
 ```
 ## 📂 Project Structure
+
 alphabase/
 ├── data/                   # Docker PostgreSQL data volume
 ├── assets/
@@ -102,6 +103,7 @@ alphabase/
 ├── docker-compose.yml      # Database Infrastructure
 ├── requirements.txt        # Python Dependencies
 └── README.md               # Documentation
+
 ## 📝 Theory: Triple Barrier Method
 本專案採用 Marcos López de Prado 提出的標註法。對於每一個觀測點 $t$，我們定義三個邊界：
 1.  **Upper Barrier (Profit Taking)**:  
