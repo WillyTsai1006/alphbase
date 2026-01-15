@@ -32,30 +32,34 @@
 ```mermaid
 graph TD
     subgraph Data Layer
-        A[External API\nyfinance] -->|ETL Script| B[(TimescaleDB)]
+        A[External API \n yfinance] -->|ETL Script| B[(TimescaleDB)]
         B -->|SQL Window Func| C[Features View]
     end
 
     subgraph Research Layer
         C --> D[Data Loader]
-        D --> E{Triple Barrier\nLabeling Engine}
+        D --> E{Triple Barrier \n Labeling Engine}
         E -->|Labeled Data| F[Optuna Tuner]
         F -->|Best Params| G[LightGBM Model]
     end
 
     subgraph Strategy Layer
-        G -->|Signals| H[Event-Driven\nBacktester]
+        G -->|Signals| H[Event-Driven \n Backtester]
         H -->|Simulated Trades| I[Performance Report]
-        I --> J[Equity Curve\nSharpe/Drawdown]
+        I --> J[Equity Curve \n Sharpe/Drawdown]
     end
 ```
 ## 📊 Backtest Performance (Sample)
 ![Equity Curve Strategy vs Benchmark](assets/equity_curve.png)
 
 Strategy Metrics:
+
 Total Return: 520.77%
+
 Sharpe Ratio: 1.54
+
 Max Drawdown: -13.67%
+
 Profit Factor: 1.46
 
 ## 💻 Installation & Usage (安裝與執行)
@@ -64,23 +68,28 @@ Prerequisites
 - Python 3.8+
 1. Setup Environment
 啟動 TimescaleDB 容器：
-Bash
+```Bash
 git clone https://github.com/yourusername/alphabase.git
 cd alphabase
 docker-compose up -d
+```
 2. Install Dependencies
-Bash
+```Bash
 pip install -r requirements.txt
+```
 3. Run Pipeline
 Step 1: Data Ingestion (ETL) 從外部 API 下載數據並寫入資料庫：
-Bash
+```Bash
 python data_loader.py
+```
 Step 2: Model Training & Research 執行因子檢驗與 LightGBM 模型訓練：
-Bash
+```Bash
 python quant_engine.py
+```
 Step 3: Backtesting 執行回測並生成績效報告：
-Bash
+```Bash
 python backtester.py
+```
 ## 📂 Project Structure
 alphabase/
 ├── data/                   # Docker PostgreSQL data volume
@@ -93,7 +102,8 @@ alphabase/
 ├── docker-compose.yml      # Database Infrastructure
 ├── requirements.txt        # Python Dependencies
 └── README.md               # Documentation
-## 📝 Theory: Triple Barrier Method本專案採用 Marcos López de Prado 提出的標註法。對於每一個觀測點 $t$，我們定義三個邊界：Upper Barrier (Profit Taking): $P_t \cdot (1 + \sigma_t \cdot M_{pt})$Lower Barrier (Stop Loss): $P_t \cdot (1 - \sigma_t \cdot M_{sl})$Vertical Barrier (Time): $t + \text{days}$標籤 $Y_i$ 根據價格路徑 $P_{t \to T}$ 首先觸碰到的邊界決定：$$Y_i = \begin{cases} 
+## 📝 Theory: Triple Barrier Method
+本專案採用 Marcos López de Prado 提出的標註法。對於每一個觀測點 $t$，我們定義三個邊界：Upper Barrier (Profit Taking): $P_t \cdot (1 + \sigma_t \cdot M_{pt})$Lower Barrier (Stop Loss): $P_t \cdot (1 - \sigma_t \cdot M_{sl})$Vertical Barrier (Time): $t + \text{days}$標籤 $Y_i$ 根據價格路徑 $P_{t \to T}$ 首先觸碰到的邊界決定：$$Y_i = \begin{cases} 
 1 & \text{if touches Upper Barrier first} \\
 -1 & \text{if touches Lower Barrier first} \\
 0 & \text{if touches Vertical Barrier}
